@@ -35,6 +35,7 @@ class Playwright extends Module
     private const NPM_PACKAGE = 'codeception-module-playwright';
 
     protected string $testId;
+    protected ?array $currentTest = null;
     protected bool $testHasFailed = false;
 
     public function _initialize()
@@ -71,8 +72,6 @@ class Playwright extends Module
     public function _before(TestInterface $test): void
     {
         $this->testId = uniqid();
-        $this->currentTest = null;
-        $this->testHasFailed = false;
         $this->sendCommand(
             'before',
             [
