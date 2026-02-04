@@ -19,8 +19,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "codeceptjs": "^3.6.6",
+    "codeceptjs": "^3.7.5",
     "express": "^4.21.0",
-    "playwright": "^1.47.1"
+    "playwright": "^1.58.1"
   }
 }
