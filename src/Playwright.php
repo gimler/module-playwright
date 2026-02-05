@@ -777,6 +777,11 @@ class Playwright extends Module
         return $this->sendCommand('waitForCookie', [$name, $sec]);
     }
 
+    public function waitForNumberOfTabs($expectedTabs, $sec = null)
+    {
+        return $this->sendCommand('waitForNumberOfTabs', [$expectedTabs, $sec]);
+    }
+
     public function grabDataFromPerformanceTiming()
     {
         return $this->sendCommand('grabDataFromPerformanceTiming');
