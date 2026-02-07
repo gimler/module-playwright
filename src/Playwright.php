@@ -300,6 +300,11 @@ class Playwright extends Module
         return $this->sendCommand('grabTitle');
     }
 
+    public function switchToTab($num = 1)
+    {
+        return $this->sendCommand('switchToTab', [$num]);
+    }
+
     public function switchToNextTab($num = 1)
     {
         return $this->sendCommand('switchToNextTab', [$num]);

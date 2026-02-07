@@ -14,12 +14,11 @@
   "bin": {
     "codeception-module-playwright": "./server.js"
   },
-
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "codeceptjs": "^3.7.5",
+    "codeceptjs": "github:codeceptjs/CodeceptJS#pull/5436/head",
     "express": "^4.21.0",
     "playwright": "^1.58.1"
   }
