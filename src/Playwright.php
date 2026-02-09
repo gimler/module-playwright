@@ -877,6 +877,16 @@ class Playwright extends Module
         return $this->sendCommand('stopRecordingWebSocketMessages');
     }
 
+    public function grabWebElement($locator)
+    {
+        return $this->sendCommand('grabWebElement', [$locator]);
+    }
+
+    public function grabWebElements($locator)
+    {
+        return $this->sendCommand('grabWebElements', [$locator]);
+    }
+
     public function grabWebSocketMessages()
     {
         return $this->sendCommand('grabWebSocketMessages');
