@@ -619,6 +619,11 @@ class Playwright extends Module
         return $this->sendCommand('grabTextFrom', [$locator]);
     }
 
+    public function grabTextFromAll($locator)
+    {
+        return $this->sendCommand('grabTextFromAll', [$locator]);
+    }
+
     public function grabMultiple($locator, $attribute = null)
     {
         if ($attribute) {
