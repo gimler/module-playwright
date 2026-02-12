@@ -147,6 +147,11 @@ class Playwright extends Module
         return $this->sendCommand('_locate', [$locator]);
     }
 
+    public function usePlaywrightTo($description, $fn)
+    {
+        return $this->sendCommand('usePlaywrightTo', [$description, $fn]);
+    }
+
     public function amOnSubdomain($url)
     {
         throw new ModuleException($this, "amOnSubdomain is not implemented, use \$I->amOnPage(\$url); instead");
