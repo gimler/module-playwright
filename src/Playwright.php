@@ -230,6 +230,16 @@ class Playwright extends Module
         return $this->sendCommand('moveCursorTo', [$locator, $offsetX, $offsetY]);
     }
 
+    public function mouseUp()
+    {
+        return $this->sendCommand('mouseUp');
+    }
+
+    public function mouseDown()
+    {
+        return $this->sendCommand('mouseDown');
+    }
+
     public function focus($locator, $options = [])
     {
         return $this->sendCommand('focus', [$locator, $options]);
