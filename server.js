@@ -62,18 +62,23 @@ app.post('/hook', async (req, res) => {
         result = await playwright[`_${hook}`]();
         break;
       case 'before':
-        if (!tests[id]) tests[id] = { title }
-      case 'failed':
+        if (!tests[id]) tests[id] = { title };
+        result = await playwright._before(tests[id]);
+        break;
+      case 'failed': {
         const fileName = `${id}_failed.png`;
         try {
           await playwright.saveScreenshot(fileName);
-          if (!tests[id]) tests[id] = { title }
-          if (!tests[id].artifacts) tests[id].artifacts = {}
+          if (!tests[id]) tests[id] = { title };
+          if (!tests[id].artifacts) tests[id].artifacts = {};
           tests[id].artifacts.screenshot = path.join(output_dir, fileName);
         } catch (err) {
           console.error('Error saving screenshot: ', err);
           // not matter
         }
+        result = await playwright._failed(tests[id]);
+        break;
+      }
       default:
         result = await playwright[`_${hook}`](tests[id]);
     }
@@ -102,6 +107,17 @@ app.post('/command', async (req, res) => {
 
   try {
     const result = await playwright[command](...arguments);
+
+    // After restartBrowser, restart tracing on the new context if tracing is enabled
+    if (command === 'restartBrowser' && playwright.options && playwright.options.trace && playwright.browserContext) {
+      try {
+        await playwright.browserContext.tracing.start({ screenshots: true, snapshots: true });
+        console.log('Tracing restarted after restartBrowser');
+      } catch (err) {
+        console.error('Error restarting tracing after restartBrowser:', err);
+      }
+    }
+
     res.status(200).json({ result });
   } catch (error) {
     const message = error.inspect ? error.inspect() : error.message;
@@ -113,3 +129,4 @@ app.post('/command', async (req, res) => {
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`);
 });
+
